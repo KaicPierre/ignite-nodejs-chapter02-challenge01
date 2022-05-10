@@ -1,0 +1,285 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Rocketseat User Adminstration API",
+    "description": "The Challenge 01 and 02 from chapter 02 during the Node.js course",
+    "version": "1.0.0",
+    "contact": {
+      "email": "kaicpierresilva2002@gmail.com"
+    }
+  },
+  "paths": {
+    "/users/{user_id}": {
+      "get": {
+        "parameters": [
+            {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "description":"User universal identifier",
+            "required": true
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Get user information",
+        "description":"Get user information by the user_id parameter",
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type" :"string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at":{
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+              "description": "User not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "error":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        }
+      }
+    },
+
+    "/users": {
+      "get": {
+        "summary": "List all users",
+        "description": "Get all user information",
+        "tags": ["Users"],
+        "parameters":[
+          {
+            "in": "header",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": "true",
+            "description": "Admin user_id"
+          }                    
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type" :"string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at":{
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags": ["Users"],
+        "summary": "Create user",
+        "description": "Insert a new user",
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                 "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type" :"string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at":{
+                      "type": "string"
+                    }
+                  }
+                } 
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content":{
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary":"Turn user admin", 
+        "description": "Give user the admin property",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": "true",
+            "description":"User_id to turn"
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json":{
+                  "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type" :"string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at":{
+                      "type": "string"
+                    }
+                  } 
+                }
+              }
+            }
+            
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+            
+          }
+        }
+      }
+    }
+
+  }
+}
